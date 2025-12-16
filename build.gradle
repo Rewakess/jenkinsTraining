@@ -15,13 +15,21 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+jacoco {
+    toolVersion = "0.8.13"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
 }
 
+jacocoTestReport {
+    dependsOn test 
+}
